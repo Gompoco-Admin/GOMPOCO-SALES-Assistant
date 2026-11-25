@@ -1,0 +1,812 @@
+{
+  "entities": {
+    "StaffMember": {
+      "title": "StaffMember",
+      "description": "Internal Gompoco salesperson or administrator profile.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "salesperson"]
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "displayName", "role", "active", "createdAt", "updatedAt"]
+    },
+    "AdminGrant": {
+      "title": "AdminGrant",
+      "description": "Trusted registry document elevating a staff user to administrator.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 254
+        },
+        "grantedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "grantedBy", "createdAt"]
+    },
+    "CompanySettings": {
+      "title": "CompanySettings",
+      "description": "Gompoco business and EFT payment configuration for quotations and invoices.",
+      "type": "object",
+      "properties": {
+        "businessName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "slogan": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 32
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 254
+        },
+        "address": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "vatNumber": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "bankName": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "accountHolder": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "accountNumber": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "branchCode": {
+          "type": "string",
+          "maxLength": 30
+        },
+        "paymentTerms": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "updatedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "businessName",
+        "slogan",
+        "phone",
+        "email",
+        "address",
+        "vatNumber",
+        "bankName",
+        "accountHolder",
+        "accountNumber",
+        "branchCode",
+        "paymentTerms",
+        "updatedBy",
+        "updatedAt"
+      ]
+    },
+    "CustomerRecord": {
+      "title": "CustomerRecord",
+      "description": "Customer profile, enquiry metadata, pest discovery, and assessment booking.",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "fullName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "phoneRaw": {
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 30
+        },
+        "phoneNormalized": {
+          "type": "string",
+          "minLength": 11,
+          "maxLength": 15,
+          "pattern": "^27[1-9][0-9]{8}$"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 254
+        },
+        "propertyAddress": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "suburb": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Residential", "Commercial", "Industrial"]
+        },
+        "preferredContactMethod": {
+          "type": "string",
+          "enum": ["WhatsApp", "Phone Call", "Email"]
+        },
+        "enquiryDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "salespersonName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "discovery": {
+          "type": "object"
+        },
+        "booking": {
+          "type": "object"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "fullName",
+        "phoneRaw",
+        "phoneNormalized",
+        "email",
+        "propertyAddress",
+        "suburb",
+        "category",
+        "preferredContactMethod",
+        "enquiryDate",
+        "salespersonName",
+        "notes",
+        "discovery",
+        "booking",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AssessmentRecord": {
+      "title": "AssessmentRecord",
+      "description": "Property assessment findings and treatment recommendation record.",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "assessmentDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "assessorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "pestIdentified": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "infestationObservations": {
+          "type": "string",
+          "maxLength": 3000
+        },
+        "affectedAreas": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "recommendedTreatment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "treatmentMethod": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "proposedProducts": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "labourRequirements": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "safetyPrecautions": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "customerPreparation": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "aftercareInstructions": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "additionalRecommendations": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "customerId",
+        "customerName",
+        "assessmentDate",
+        "assessorName",
+        "pestIdentified",
+        "infestationObservations",
+        "affectedAreas",
+        "recommendedTreatment",
+        "treatmentMethod",
+        "proposedProducts",
+        "labourRequirements",
+        "safetyPrecautions",
+        "customerPreparation",
+        "aftercareInstructions",
+        "additionalRecommendations",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AssessmentAttachment": {
+      "title": "AssessmentAttachment",
+      "description": "Compressed supporting photo or note attached to an assessment record.",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "assessmentId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "fileName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 180
+        },
+        "caption": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "dataUrl": {
+          "type": "string",
+          "maxLength": 250000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["ownerUid", "assessmentId", "customerId", "fileName", "caption", "dataUrl", "createdAt"]
+    },
+    "QuotationRecord": {
+      "title": "QuotationRecord",
+      "description": "Quotation with line items, ZAR calculations, status lifecycle, and customer approval.",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "customerPhone": {
+          "type": "string",
+          "minLength": 11,
+          "maxLength": 15
+        },
+        "customerArea": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "customerAddress": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "assessmentId": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "quotationNumber": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 40,
+          "pattern": "^GMP-Q-[A-Z0-9\\-]+$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Draft", "Sent", "Awaiting approval", "Approved", "Declined", "Expired"]
+        },
+        "lineItems": {
+          "type": "array"
+        },
+        "labourCost": {
+          "type": "number"
+        },
+        "materialsCost": {
+          "type": "number"
+        },
+        "travelFee": {
+          "type": "number"
+        },
+        "additionalServicesCost": {
+          "type": "number"
+        },
+        "discountAmount": {
+          "type": "number"
+        },
+        "vatApplicable": {
+          "type": "boolean"
+        },
+        "subtotal": {
+          "type": "number"
+        },
+        "vatAmount": {
+          "type": "number"
+        },
+        "grandTotal": {
+          "type": "number"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "customerApprovalName": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "customerApprovalMethod": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "customerApprovalDate": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "customerApprovalNotes": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "sentDate": {
+          "type": "string",
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "customerId",
+        "customerName",
+        "customerPhone",
+        "customerArea",
+        "customerAddress",
+        "assessmentId",
+        "quotationNumber",
+        "status",
+        "lineItems",
+        "labourCost",
+        "materialsCost",
+        "travelFee",
+        "additionalServicesCost",
+        "discountAmount",
+        "vatApplicable",
+        "subtotal",
+        "vatAmount",
+        "grandTotal",
+        "notes",
+        "customerApprovalName",
+        "customerApprovalMethod",
+        "customerApprovalDate",
+        "customerApprovalNotes",
+        "sentDate",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "InvoiceRecord": {
+      "title": "InvoiceRecord",
+      "description": "Invoice generated from an approved quotation with payment status tracking.",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "quotationId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "quotationNumber": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 40
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 40,
+          "pattern": "^GMP-INV-[A-Z0-9\\-]+$"
+        },
+        "billingMilestone": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "customerPhone": {
+          "type": "string",
+          "minLength": 11,
+          "maxLength": 15
+        },
+        "customerEmail": {
+          "type": "string",
+          "maxLength": 254
+        },
+        "customerAddress": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "customerSuburb": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "invoiceDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "dueDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "lineItems": {
+          "type": "array"
+        },
+        "labourCost": {
+          "type": "number"
+        },
+        "materialsCost": {
+          "type": "number"
+        },
+        "travelFee": {
+          "type": "number"
+        },
+        "additionalServicesCost": {
+          "type": "number"
+        },
+        "discountAmount": {
+          "type": "number"
+        },
+        "vatApplicable": {
+          "type": "boolean"
+        },
+        "subtotal": {
+          "type": "number"
+        },
+        "vatAmount": {
+          "type": "number"
+        },
+        "totalAmount": {
+          "type": "number"
+        },
+        "amountPaid": {
+          "type": "number"
+        },
+        "paymentStatus": {
+          "type": "string",
+          "enum": ["Unpaid", "Partially paid", "Paid", "Overdue"]
+        },
+        "paymentInstructions": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "paymentReference": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 2000
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "customerId",
+        "quotationId",
+        "quotationNumber",
+        "invoiceNumber",
+        "billingMilestone",
+        "customerName",
+        "customerPhone",
+        "customerEmail",
+        "customerAddress",
+        "customerSuburb",
+        "invoiceDate",
+        "dueDate",
+        "lineItems",
+        "labourCost",
+        "materialsCost",
+        "travelFee",
+        "additionalServicesCost",
+        "discountAmount",
+        "vatApplicable",
+        "subtotal",
+        "vatAmount",
+        "totalAmount",
+        "amountPaid",
+        "paymentStatus",
+        "paymentInstructions",
+        "paymentReference",
+        "notes",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "WhatsAppLog": {
+      "title": "WhatsAppLog",
+      "description": "Manually confirmed WhatsApp communication log entry.",
+      "type": "object",
+      "properties": {
+        "ownerUid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "customerName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "recipientPhone": {
+          "type": "string",
+          "minLength": 11,
+          "maxLength": 15,
+          "pattern": "^27[1-9][0-9]{8}$"
+        },
+        "messageType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "messageText": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "markedSentBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "ownerUid",
+        "customerId",
+        "customerName",
+        "recipientPhone",
+        "messageType",
+        "messageText",
+        "notes",
+        "markedSentBy",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/staff/{uid}": {
+      "schema": { "$ref": "#/entities/StaffMember" },
+      "description": "Internal Gompoco staff profiles and active flags."
+    },
+    "/admins/{uid}": {
+      "schema": { "$ref": "#/entities/AdminGrant" },
+      "description": "Administrator role grants managed by existing admins."
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/CompanySettings" },
+      "description": "Company contact and EFT billing settings."
+    },
+    "/customers/{customerId}": {
+      "schema": { "$ref": "#/entities/CustomerRecord" },
+      "description": "Customer profiles, discovery responses, and assessment bookings."
+    },
+    "/assessments/{assessmentId}": {
+      "schema": { "$ref": "#/entities/AssessmentRecord" },
+      "description": "Assessment findings and treatment recommendation records."
+    },
+    "/assessments/{assessmentId}/attachments/{attachmentId}": {
+      "schema": { "$ref": "#/entities/AssessmentAttachment" },
+      "description": "Supporting compressed photo attachments for assessments."
+    },
+    "/quotations/{quotationId}": {
+      "schema": { "$ref": "#/entities/QuotationRecord" },
+      "description": "Quotations linked to customers and assessments."
+    },
+    "/invoices/{invoiceId}": {
+      "schema": { "$ref": "#/entities/InvoiceRecord" },
+      "description": "Invoices generated from approved quotations."
+    },
+    "/whatsappLogs/{logId}": {
+      "schema": { "$ref": "#/entities/WhatsAppLog" },
+      "description": "Manually confirmed WhatsApp communication logs."
+    }
+  }
+}

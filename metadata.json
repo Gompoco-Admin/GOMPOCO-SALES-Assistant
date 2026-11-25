@@ -1,0 +1,6 @@
+{
+  "name": "Gompoco Sales Assistant",
+  "description": "Internal sales assistant for Gompoco pest control and preventative home care: customer capture, pest discovery, guided sales scripts, assessment booking, treatment records, ZAR quotations, WhatsApp Click-to-Chat messages, and invoicing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
